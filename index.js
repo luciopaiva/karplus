@@ -19,15 +19,18 @@ class Karplus {
 
         // volume element
         this.volumeElement = document.getElementById("volume");
-        this.volumeElement.addEventListener("input", (event) => {
-            const value = event.target.value;
-            const normalizedVolume = value / event.target.max;
-            this.gainNode.gain.setValueAtTime(normalizedVolume, this.audioContext.currentTime);
-        });
+        this.volumeElement.addEventListener("input", () => this.updateVolume());
+        this.updateVolume();
 
         // connect nodes
         this.whiteNoise.connect(this.gainNode);
         this.gainNode.connect(this.audioContext.destination);
+    }
+
+    updateVolume() {
+        const value = this.volumeElement.value;
+        const normalizedVolume = value / this.volumeElement.max;
+        this.gainNode.gain.setValueAtTime(normalizedVolume, this.audioContext.currentTime);
     }
 }
 
