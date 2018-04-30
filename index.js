@@ -58,13 +58,13 @@ class Karplus {
     draw() {
         this.analyser.getByteFrequencyData(this.analyserData);
 
-        this.canvasCtx.fillStyle = "black";
+        this.canvasCtx.fillStyle = "white";
         this.canvasCtx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
 
         let x = 0;
         for (let i = 0; i < this.analyserBufferLength; i++) {
             let barHeight = this.analyserData[i];
-            this.canvasCtx.fillStyle = `rgb(255, 50, 50)`;
+            this.canvasCtx.fillStyle = `rgb(0, 0, 255)`;
             this.canvasCtx.fillRect(x, this.canvasHeight - barHeight / 2, this.analyserBarWidth, barHeight);
             x += this.analyserBarWidth;
         }
