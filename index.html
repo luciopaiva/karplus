@@ -61,6 +61,9 @@
 <div class="container description">
     <h2>How it works</h2>
     <p>The sound you are hearing is completely synthetic. It is generated using as input simple, random noise (just Math.random(), really). For every pluck you hear, the algorithm produces about 500 microseconds of white noise, which is then fed back into a delay buffer that perfectly fits the frequency we want it to resonate with. It is then fed through a ridiculously simple low-pass filter (just the averaging of two consecutive samples) and the result is incredibly similar to what an acoustic guitar sounds like.</p>
+    <p>Your are hearing a D major chord, which is just 4 strings being synthesized separately and then mixed together.</p>
+    <p><img src="d-major-chord.png" alt="D major chord" title="D major chord"></p>
+    <!-- image taken from https://music.stackexchange.com/q/79475 -->
     <p>My implementation further filters it using WebAudio filter nodes, just to remove some high pitch frequencies and make it sound less like steel strings and more like nylon ones, but they are not necessary for the synthesis and you could remove them and still have the guitar timbre going on.</p>
     <p>Feel free to check the <a href="//github.com/luciopaiva/karplus">source code</a> for more details.</p>
     <p>Lucio Paiva, 2018-2019</p>
