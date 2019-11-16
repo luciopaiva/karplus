@@ -2,6 +2,23 @@
 class Karplus {
 
     constructor () {
+        this.welcomeMessageElement = document.getElementById("welcome-message");
+
+        this.isInitialized = false;
+        document.querySelector(".canvas-container")
+            .addEventListener("click", this.onWelcomeMessageClick.bind(this));
+    }
+
+    onWelcomeMessageClick() {
+        if (!this.isInitialized) {
+            this.initialize();
+            this.isInitialized = true;
+        }
+    }
+
+    initialize () {
+        this.welcomeMessageElement.remove();
+
         this.audioContext = new window.AudioContext();
 
         // gain node
@@ -15,13 +32,12 @@ class Karplus {
         this.updateVolume();
 
         // note frequencies here: http://makaroni4.com/images/posts/guitar_bro/guitar_frequencies.jpg
-        const G_CHORD = this.makeChord(98, 123, 147, 196, 294, 392);
-        const A_CHORD = this.makeChord(110, 165, 220, 277, 329);
+        // const G_CHORD = this.makeChord(98, 123, 147, 196, 294, 392);
+        // const A_CHORD = this.makeChord(110, 165, 220, 277, 329);
         const D_CHORD = this.makeChord(147, 220, 294, 370);
 
         this.nodes = [
             D_CHORD,
-            // this.makeKarplusStrongNode(220),
             this.makeFilter("lowshelf", 600, 15),  // increase this frequency to make lower pitches louder
             this.makeFilter("peaking", 220, 5),
             this.makeFilter("highshelf", 2500, -15),
@@ -58,13 +74,13 @@ class Karplus {
     draw() {
         this.analyser.getByteFrequencyData(this.analyserData);
 
-        this.canvasCtx.fillStyle = "white";
+        this.canvasCtx.fillStyle = "black";
         this.canvasCtx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
 
         let x = 0;
         for (let i = 0; i < this.analyserBufferLength; i++) {
             let barHeight = this.analyserData[i];
-            this.canvasCtx.fillStyle = `rgb(0, 0, 255)`;
+            this.canvasCtx.fillStyle = `rgb(17, 255, 0)`;
             this.canvasCtx.fillRect(x, this.canvasHeight - barHeight / 2, this.analyserBarWidth, barHeight);
             x += this.analyserBarWidth;
         }

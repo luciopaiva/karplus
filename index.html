@@ -4,6 +4,33 @@
     <meta charset="UTF-8">
     <title>Karplus Strong Demo</title>
 
+    <style>
+        body {
+            font-family: Arial, serif;
+            background-color: #e2e2e2;
+        }
+        .container {
+            margin-bottom: 20px;
+        }
+        .canvas-container {
+            border: 1px solid #333;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            height: 160px;
+        }
+        #welcome-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
     <script src="index.js"></script>
 
     <script>
@@ -17,9 +44,27 @@
 </head>
 <body>
 
-<canvas id="display" width="1024" height="160"></canvas>
+<h1>Karplus-Strong audio synthesis</h1>
 
-<input id="volume" type="range" value="14" min="0" max="20">
+<div class="container canvas-container">
+    <canvas id="display" width="1024" height="160"></canvas>
+    <div id="welcome-message">
+        <h2>Click to start</h2>
+    </div>
+</div>
+
+<div class="container controls">
+    <label for="volume">Volume</label>
+    <input id="volume" type="range" value="14" min="0" max="20">
+</div>
+
+<div class="container description">
+    <h2>How it works</h2>
+    <p>The sound you are hearing is completely synthetic. It is generated using as input simple, random noise (just Math.random(), really). For every pluck you hear, the algorithm produces about 500 microseconds of white noise, which is then fed back into a delay buffer that perfectly fits the frequency we want it to resonate with. It is then fed through a ridiculously simple low-pass filter (just the averaging of two consecutive samples) and the result is incredibly similar to what an acoustic guitar sounds like.</p>
+    <p>My implementation further filters it using WebAudio filter nodes, just to remove some high pitch frequencies and make it sound less like steel strings and more like nylon ones, but they are not necessary for the synthesis and you could remove them and still have the guitar timbre going on.</p>
+    <p>Feel free to check the <a href="//github.com/luciopaiva/karplus">source code</a> for more details.</p>
+    <p>Lucio Paiva, 2018-2019</p>
+</div>
 
 </body>
 </html>
